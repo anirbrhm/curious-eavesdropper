@@ -7,8 +7,9 @@ using namespace std ;
 class Spins{
     
     int n, m ; 
-    vector<vector<int>> A ; 
+    vector<vector<int>> A ;
 
+  public : 
     Spins(){
         this->n = N ;
         this->m = M ;  

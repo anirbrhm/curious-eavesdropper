@@ -1,4 +1,4 @@
-import para
+include("./../para.jl")
 
 struct Spins
 	N::Int64

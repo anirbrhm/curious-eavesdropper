@@ -1,4 +1,4 @@
-import para
+include("source.jl")
 
 function init(S::Spins)
     S.N = para.N

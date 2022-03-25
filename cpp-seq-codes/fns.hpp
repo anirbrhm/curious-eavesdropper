@@ -1,6 +1,6 @@
 #include <iostream> 
-#include "spins.cpp" 
-#include "para.h"
+#include "spins.hpp" 
+#include "para.hpp"
 #include <cstdlib>
 #include <math.h>
 

@@ -9,7 +9,5 @@ int main(){
 
     advance(S) ;  
 
-    cout << "The magnetisation is : " << S.mag() << endl ; 
-
     return 0 ; 
 }

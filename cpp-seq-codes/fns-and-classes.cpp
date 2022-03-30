@@ -86,7 +86,7 @@ void advance(Spins &S){
         cout << "step : " << step << ", Enow : " << Enow << ", Enext : " << Enext << ", <m> = " << S.mag() << endl ; 
         float dE = Enext - Enow ; 
 
-        if (rand()%10 < 10*exp(-dE/T)){
+        if(dE < 0 || rand()%10 < 10*exp(-dE/T)){
             Enow = Enext ; 
         }
         else{
@@ -97,5 +97,5 @@ void advance(Spins &S){
         m[step] = S.mag() ; 
     } 
 
-    cout << "Avg mag = " << S.mag() ; 
+    cout << "Avg mag = " << S.mag() << endl ; 
 }

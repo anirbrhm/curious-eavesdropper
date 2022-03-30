@@ -1,15 +1,15 @@
 #include <iostream>
-#include "fns.hpp" 
-#include "para.hpp"
-#include "spins.hpp" 
+#include "fns-and-classes.cpp" 
 
 using namespace std ; 
 
 int main(){
     Spins S = Spins() ; 
-    cout << S.energy() << endl ; 
+    cout << S.energy() << endl ;
 
-    advance(S) ; 
+    advance(S) ;  
+
+    cout << "The magnetisation is : " << S.mag() << endl ; 
 
     return 0 ; 
 }

@@ -124,7 +124,7 @@ function run_parallel(N=100::Int,M=100::Int,max_steps=10000::Int)
 end
 
 # ╔═╡ 15027a43-afc0-4132-9d56-6db94aaf4074
-@time run_parallel(50,50,100000)
+@time run_parallel(50,50,1000)
 
 # ╔═╡ 00000000-0000-0000-0000-000000000001
 PLUTO_PROJECT_TOML_CONTENTS = """

@@ -71,12 +71,12 @@ function Advance(S::Spins,max_steps=10000::Int,T=5.0::Float32)
 		Enext = EnergyParallel(S)
 		dE = Enext - Enow
 
-        	if dE < 0
+        if dE < 0
 			Enow = Enext
 		elseif	rand() < exp(-dE/T)
-       			Enow = Enext
-        	else
-            		S.A[i,j] = InitVal
+            Enow = Enext
+        else
+            S.A[i,j] = InitVal
 		end
 
 		E[step] = Enow
@@ -98,3 +98,6 @@ function Run(N=100::Int,M=100::Int,max_steps=10000::Int,T=Float32(5.0)::Float32)
 	h2 = heatmap(S)
 	savefig(plot(h1,h2), "./Out")
 end
+
+@time Run(100,100,10)
+println(Threads.nthreads())

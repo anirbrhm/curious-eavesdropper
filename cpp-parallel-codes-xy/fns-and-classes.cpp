@@ -1,6 +1,6 @@
 #include <iostream> 
 #include "para.hpp"
-#include <math.h>
+#include <cmath>
 #include <cstdlib>
 #include <ctime>
 
@@ -25,7 +25,7 @@ class Spins{
                 if(i == A.size()-1 || i == 0 || j == A[0].size()-1 || j == 0) A[i][j] = 0.0 ; 
                 else{
                     float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) ;
-                    A[i][j] = r ; 
+                    A[i][j] = 2 * M_PI * r ;  
                 } 
             }
         }
@@ -35,13 +35,13 @@ class Spins{
         float res = 0 ; 
         for(int i=0 ; i<A.size() ; i++){
             for(int j=0 ; j<A[0].size()-1 ; j++){
-                res += A[i][j] * A[i][j+1] ; 
+                res += cos(A[i][j] - A[i][j+1]) ; 
             }
         }        
 
         for(int i=0 ; i<A[0].size() ; i++){
             for(int j=0 ; j<A.size()-1 ; j++){
-                res += A[j][i] * A[j+1][i] ; 
+                res += cos(A[j][i] * A[j+1][i]) ; 
             }
         }
         
@@ -59,7 +59,7 @@ class Spins{
     
         for(int i=0 ; i<A.size() ; i++){
             for(int j=0 ; j<A[0].size() ; j++){
-                sum += A[i][j] ; 
+                sum += cos(A[i][j]) ; 
             }
         }
 
@@ -83,18 +83,24 @@ void advance(Spins &S){
         int j = rand()%(M) + 1 ; 
 
         float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+        float dtheta = 2 * M_PI * r - M_PI ; 
+        float original = S.A[i][j] ; 
 
-        S.A[i][j] = S.A[i][j] + 4*(r-0.5) ; 
+        S.A[i][j] += dtheta ; 
+
+        if(S.A[i][j] > 2 * M_PI) S.A[i][j] -= 2 * M_PI ; 
+        else if(S.A[i][j] + dtheta < 0) S.A[i][j] += 2 * M_PI ; 
+
         float Enext = S.energy() ; 
 
         cout << "step : " << step << ", Enow : " << Enow << ", Enext : " << Enext << ", <m> = " << S.mag() << endl ; 
         float dE = Enext - Enow ; 
 
-        if(dE < 0 || rand()%10 < 10*exp(-dE/T)){
+        if(dE < 0 || rand()%10 < 10.0*exp(-dE/T)){
             Enow = Enext ; 
         }
         else{
-            S.A[i][j] = S.A[i][j] - 4*(r-0.5) ; 
+            S.A[i][j] = original ; 
         }
 
         E[step] = Enow ; 

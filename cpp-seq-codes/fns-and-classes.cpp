@@ -24,8 +24,8 @@ class Spins{
             for(int j=0 ; j<A[0].size() ; j++){
                 if(i == A.size()-1 || i == 0 || j == A[0].size()-1 || j == 0) A[i][j] = 0 ; 
                 else{
-                    int random = rand()%10 + 1 ;  
-                    if(random > 7) A[i][j] = -1 ;
+                    float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) ;                
+                    if(r > 0.7) A[i][j] = -1 ;
                 } 
             }
         }
@@ -35,17 +35,17 @@ class Spins{
         int res = 0 ; 
         for(int i=0 ; i<A.size() ; i++){
             for(int j=0 ; j<A[0].size()-1 ; j++){
-                res += A[i][j] * A[i][j+1] ; 
+                res -= A[i][j] * A[i][j+1] ; 
             }
         }        
 
         for(int i=0 ; i<A[0].size() ; i++){
             for(int j=0 ; j<A.size()-1 ; j++){
-                res += A[j][i] * A[j+1][i] ; 
+                res -= A[j][i] * A[j+1][i] ; 
             }
         }
         
-        return res/2 ; 
+        return res ; 
     }
 
     void neg(int i, int j){
@@ -75,6 +75,9 @@ void advance(Spins &S){
 
     int step = 0 ; 
 
+    srand (static_cast <unsigned> (time(0))) ;
+
+
     while (step < max_steps){
         step += 1 ; 
         int i = rand()%(N) + 1 ;
@@ -86,7 +89,9 @@ void advance(Spins &S){
         cout << "step : " << step << ", Enow : " << Enow << ", Enext : " << Enext << ", <m> = " << S.mag() << endl ; 
         float dE = Enext - Enow ; 
 
-        if(dE < 0 || rand()%10 < 10*exp(-dE/T)){
+        float r = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) ;
+
+        if(dE < 0 || r < exp(-dE/T)){
             Enow = Enext ; 
         }
         else{

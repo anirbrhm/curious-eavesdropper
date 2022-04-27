@@ -18,15 +18,6 @@ int main(int argc, char *argv[]) {
 
     cout << "Hi this is thread " << myid << endl ; 
 
-    if(myid == 0){
-        ofstream outAinit("Ainit.txt") ;
-        for(int i=0 ; i<S.A.size() ; i++){
-            for(int j=0 ; j<S.A[i].size() ; j++){
-                outAinit << S.A[i][j] << "\n" ; 
-            }
-        }
-    }
-
     advance(S);  // Every MPI thread will run the parallel work
 
     MPI_Finalize(); 
@@ -41,10 +32,13 @@ int main(int argc, char *argv[]) {
         ofstream outm("m.txt");
         for(int i=0 ; i<m.size() ; i++) outm << m[i] << "\n" ; 
 
-        ofstream outa("A.txt") ; 
+        ofstream outE("E.txt") ; 
+        for(int i=0 ; i<E.size() ; i++) outE << E[i] << "\n" ; 
+
+        ofstream outA("A.txt") ; 
         for(int i=0 ; i<S.A.size() ; i++){
-            for(int j=0 ; j<S.A[i].size() ; j++){
-                outa << S.A[i][j] << "\n" ; 
+            for(int j=0 ; j<S.A[0].size() ; j++){
+                outA << S.A[i][j] << "\n" ; 
             }
         }
     }

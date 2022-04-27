@@ -35,17 +35,17 @@ class Spins{
         float res = 0 ; 
         for(int i=0 ; i<A.size() ; i++){
             for(int j=0 ; j<A[0].size()-1 ; j++){
-                res += cos(A[i][j] - A[i][j+1]) ; 
+                res -= cos(A[i][j] - A[i][j+1]) ; 
             }
         }        
 
         for(int i=0 ; i<A[0].size() ; i++){
             for(int j=0 ; j<A.size()-1 ; j++){
-                res += cos(A[j][i] * A[j+1][i]) ; 
+                res -= cos(A[j][i] - A[j+1][i]) ; 
             }
         }
         
-        return res/2 ; 
+        return res ; 
     }
 
     void neg(int i, int j){
@@ -96,7 +96,9 @@ void advance(Spins &S){
         cout << "step : " << step << ", Enow : " << Enow << ", Enext : " << Enext << ", <m> = " << S.mag() << endl ; 
         float dE = Enext - Enow ; 
 
-        if(dE < 0 || rand()%10 < 10.0*exp(-dE/T)){
+        float r1 = static_cast <float> (rand()) / static_cast <float> (RAND_MAX) ;
+
+        if(dE < 0 || r1 < exp(-dE/T)){
             Enow = Enext ; 
         }
         else{
